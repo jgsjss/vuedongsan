@@ -1,26 +1,84 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="black-bg">
+  <div class="white-bg">
+    <h4>상세페이지</h4>
+    <p>상세페이지내용임</p>
+  </div>
+</div>
+
+  <div class="menu">
+    <a v-for="a in menus" :key="a">{{a}}</a>
+  </div>
+  <div v-for="(a,i) in products" :key="i">
+    <h4>{{products[i]}}</h4>
+    <p>월세 : {{price[i]}}</p>
+    <button @click="reportNum[i]++">허위매물신고</button><span>신고수 : {{reportNum[i]}}</span>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
+  data(){
+    return{
+      checkModal : false,
+    reportNum : [0,0,0],
+    price : ['70', '60', '50'],  
+    menus : ['Home', 'Products', 'About'],
+    products : ['천호동원룸', '역삼동원룸', '신림동원룸'],
+    }
+  },
+  methods: {
+    increase(){
+
+    }
+  },
   components: {
-    HelloWorld
+    
   }
 }
 </script>
 
 <style>
+
+body {
+  margin : 0;
+}
+div {
+  box-sizing: border-box;
+}
+.black-bg {
+  width: 100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  position: fixed; padding: 20px;
+}
+.white-bg {
+  width: 100%; background: white;
+  border-radius: 8px;
+  padding: 20px;
+} 
+.room-img{
+  width: 100%;
+  margin-top: 40px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  
+}
+.menu{
+  background: darkslateblue;
+  padding: 15px;
+  border-radius: 5px;
+}
+.menu a{
+  color: white;
+  padding: 10px;
 }
 </style>
