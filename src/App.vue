@@ -1,42 +1,57 @@
 <template>
-  <div class="black-bg">
-  <div class="white-bg">
-    <h4>상세페이지</h4>
-    <p>상세페이지내용임</p>
-  </div>
-</div>
+  <Modal @closeModal="checkModal=false" :products="products" :clickNum="clickNum" :checkModal="checkModal" />
 
   <div class="menu">
     <a v-for="a in menus" :key="a">{{a}}</a>
   </div>
-  <div v-for="(a,i) in products" :key="i">
-    <h4>{{products[i]}}</h4>
-    <p>월세 : {{price[i]}}</p>
-    <button @click="reportNum[i]++">허위매물신고</button><span>신고수 : {{reportNum[i]}}</span>
-  </div>
+
+  <button @click="priceSort">가격 오름차순 정렬</button>
+  <button @click="reverseSort">가격 내림차순 정렬</button>
+  
+  
+  <Card @openModal="checkModal=true; clickNum=$event" :product="products[i]" v-for="(a,i) in products" :key="i"/>
+  
+  
 </template>
 
 <script>
-
+import products from './assets/products.js';
+import Modal from './components/Modal.vue';
+import Card from './components/Card.vue';
 
 export default {
   name: 'App',
   data(){
     return{
-      checkModal : false,
-    reportNum : [0,0,0],
+      productsOrigin : [...products],
+      clickNum : 0,
+    checkModal : false,
     price : ['70', '60', '50'],  
     menus : ['Home', 'Products', 'About'],
-    products : ['천호동원룸', '역삼동원룸', '신림동원룸'],
+    products : [...products],
     }
   },
   methods: {
-    increase(){
-
-    }
-  },
+      reverseSort(){
+        this.products.sort(function(a,b){
+          return b.price - a.price
+        })
+      },
+      sortBack(){
+        this.products = [...this.productsOrigin]
+      },
+      priceSort(){
+        this.products.sort(function(a,b){
+          return a.price - b.price
+        })
+      }
+    },
+    mounted() {
+      
+    },
   components: {
-    
+    Modal : Modal,
+    Card : Card,
   }
 }
 </script>
